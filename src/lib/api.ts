@@ -6,7 +6,7 @@ const SEMANTIC_SCHOLAR_BASE = "https://api.semanticscholar.org/graph/v1";
 function getDateRange(): { minDate: string; maxDate: string } {
   const now = new Date();
   const yearAgo = new Date(now);
-  yearAgo.setFullYear(yearAgo.getFullYear() - 1);
+  yearAgo.setFullYear(yearAgo.getFullYear() - 5);
   const fmt = (d: Date) =>
     `${d.getFullYear()}/${String(d.getMonth() + 1).padStart(2, "0")}/${String(d.getDate()).padStart(2, "0")}`;
   return { minDate: fmt(yearAgo), maxDate: fmt(now) };
