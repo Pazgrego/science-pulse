@@ -1,7 +1,7 @@
-import { useState } from "react";
 import { Paper } from "@/types/paper";
 import { motion } from "framer-motion";
-import { ExternalLink, ChevronDown, ChevronUp, Quote } from "lucide-react";
+import { ExternalLink, Quote } from "lucide-react";
+import ResearchSnapshotCard from "./ResearchSnapshot";
 
 interface PaperCardProps {
   paper: Paper;
@@ -9,13 +9,10 @@ interface PaperCardProps {
 }
 
 export default function PaperCard({ paper, index }: PaperCardProps) {
-  const [expanded, setExpanded] = useState(false);
-
   const firstAuthor = paper.authors[0] || "Unknown";
   const authorDisplay =
     paper.authors.length > 1 ? `${firstAuthor} et al.` : firstAuthor;
 
-  const abstractSnippet = paper.abstract.split(". ").slice(0, 2).join(". ") + ".";
   const isMicrobiome = paper.field === "microbiome";
 
   return (
@@ -58,27 +55,7 @@ export default function PaperCard({ paper, index }: PaperCardProps) {
 
           <p className="mt-1 text-sm text-muted-foreground">{authorDisplay}</p>
 
-          <div className="mt-3">
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              {expanded ? paper.abstract : abstractSnippet}
-            </p>
-            {paper.abstract.split(". ").length > 2 && (
-              <button
-                onClick={() => setExpanded(!expanded)}
-                className="mt-1 inline-flex items-center gap-1 text-xs font-medium text-primary hover:underline"
-              >
-                {expanded ? (
-                  <>
-                    Show less <ChevronUp className="h-3 w-3" />
-                  </>
-                ) : (
-                  <>
-                    Read more <ChevronDown className="h-3 w-3" />
-                  </>
-                )}
-              </button>
-            )}
-          </div>
+          <ResearchSnapshotCard paperId={paper.id} abstract={paper.abstract} />
         </div>
 
         <div className="flex flex-shrink-0 flex-col items-center gap-1 rounded-lg bg-muted px-3 py-2">
